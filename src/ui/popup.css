@@ -1,0 +1,72 @@
+body {
+  width: 300px;
+  margin: 0px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  background: #ffffff;
+}
+
+p {
+  margin: 0px;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 10px;
+}
+
+#toggleSwitch {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 20px;
+}
+
+#extensionToggle {
+  box-sizing: border-box;
+  width: 15px;
+  height: 15px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 5px;
+}
+
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 20px;
+}
+
+#openBlacklist {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 10px;
+  width: 240px;
+  background: #070707;
+  color: #ffffff;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+#openBlacklist:hover {
+  background: #333;
+}

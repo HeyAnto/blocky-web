@@ -1,0 +1,85 @@
+/* Global reset */
+*:not(#unround):not(input[type="radio" i]),
+*:not(#unround):not(input[type="radio" i])::before,
+*:not(#unround):not(input[type="radio" i])::after {
+  border-radius: 0 !important;
+}
+label input[type="checkbox" i] + svg rect[rx] {
+ rx: 0 !important;
+}
+label input[type="checkbox" i] + svg rect[ry] {
+ ry: 0 !important;
+}
+
+/* Form borders */
+@layer i_miss_true_user_origin_level_stylesheets {
+  :where(input, button, select) {
+    border-width: 1px;
+  }
+}
+
+/* Facebook masks */
+:root#facebook svg[role] > mask[id]:first-child + g[mask]:last-child
+{
+  mask: none !important;
+  & circle { opacity: 0.1 !important; }
+  & image:has(~ circle[stroke="var(--accent)"])
+  {
+   outline: 2px solid var(--accent);
+   outline-offset: 2px;
+   & ~ circle { display: none; }
+ }
+}
+
+/* Facebook icons */
+@-moz-document domain("facebook.com") {
+  :root#facebook svg[viewBox="0 0 36 36"] path {
+    /* FB logo box */
+    &[d="M20.181 35.87C29.094 34.791 36 27.202 36 18c0-9.941-8.059-18-18-18S0 8.059 0 18c0 8.442 5.811 15.526 13.652 17.471L14 34h5.5l.681 1.87Z"] ,
+    &[d="M15 35.8C6.5 34.3 0 26.9 0 18 0 8.1 8.1 0 18 0s18 8.1 18 18c0 8.9-6.5 16.3-15 17.8l-1-.8h-4l-1 .8z"] {
+      d: path("M0 0 H 36 V 36 H 0 z");
+    }
+
+    /* FB f glyph */
+    &[d="M13.651 35.471v-11.97H9.936V18h3.715v-2.37c0-6.127 2.772-8.964 8.784-8.964 1.138 0 3.103.223 3.91.446v4.983c-.425-.043-1.167-.065-2.081-.065-2.952 0-4.09 1.116-4.09 4.025V18h5.883l-1.008 5.5h-4.867v12.37a18.183 18.183 0 0 1-6.53-.399Z"],
+    &[d="M25 23l.8-5H21v-3.5c0-1.4.5-2.5 2.7-2.5H26V7.4c-1.3-.2-2.7-.4-4-.4-4.1 0-7 2.5-7 7v4h-4.5v5H15v12.7c1 .2 2 .3 3 .3s2-.1 3-.3V23h4z"] {
+      d: path("M25 23l.8-5H21v-3.5c0-1.4.5-2.5 2.7-2.5H26V7.4c-1.3-.2-2.7-.4-4-.4-4.1 0-7 2.5-7 7v4h-4.5v5H15   V 35 h 6    V23h4z");
+    }
+  }
+}
+
+/* X clip fix */
+@-moz-document domain("twitter.com"), domain("x.com") {
+  [style*='clip-path: url("#circle-hw-shapeclip-clipconfig")'] {
+    clip-path: none !important;
+  }
+}
+
+/* WhatsApp marks */
+@-moz-document domain("web.whatsapp.com") {
+  svg:has(path.background) {
+    background-color: rgba(var(--white-rgb),.16);
+  }
+  svg:has(path.background) g path{
+    opacity: .3;
+  } 
+  svg:has(path.background) path.background {
+    display: none
+  }
+}
+
+/* Google icon */
+@-moz-document domain("google.com"), domain("chromium.org") {
+  path[d="M4.02,28.27C2.73,25.8,2,22.98,2,20c0-2.87,0.68-5.59,1.88-8l-1.72-1.04C0.78,13.67,0,16.75,0,20c0,3.31,0.8,6.43,2.23,9.18L4.02,28.27z"][fill="#F6AD01"] {
+    d: path("M 2 2 v 36 l 2 -2 V 4 Z");
+  }
+  path[d="M32.15,33.27C28.95,36.21,24.68,38,20,38c-6.95,0-12.98-3.95-15.99-9.73l-1.79,0.91C5.55,35.61,12.26,40,20,40c5.2,0,9.93-1.98,13.48-5.23L32.15,33.27z"][fill="#249A41"] {
+    d: path("M 2 38 h 36 l -2 -2 H 4 Z");
+  }
+  path[d="M33.49,34.77C37.49,31.12,40,25.85,40,20c0-5.86-2.52-11.13-6.54-14.79l-1.37,1.46C35.72,9.97,38,14.72,38,20c0,5.25-2.26,9.98-5.85,13.27L33.49,34.77z"][fill="#3174F1"] {
+    d: path("M 38 2 v 36 l -2 -2 V 4 Z");
+  }
+  path[d="M20,2c4.65,0,8.89,1.77,12.09,4.67l1.37-1.46C29.91,1.97,25.19,0,20,0l0,0C12.21,0,5.46,4.46,2.16,10.96L3.88,12C6.83,6.08,12.95,2,20,2"][fill="#E92D18"] {
+    d: path("M 2 2 h 36 l -2 2 H 4 Z");
+  }
+}

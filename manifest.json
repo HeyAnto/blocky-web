@@ -1,0 +1,40 @@
+{
+  "manifest_version": 2,
+  "name": "Blocky Web",
+  "version": "2.0",
+  "description": "Bring back the boxy web",
+  "permissions": [
+    "storage",
+    "tabs",
+    "<all_urls>"
+  ],
+  "browser_action": {
+    "default_icon": "assets/icons/icon-active.svg",
+    "default_popup": "src/ui/popup.html"
+  },
+  "background": {
+    "scripts": [
+      "src/scripts/background.js"
+    ],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "src/scripts/content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    "src/styles/inject.css"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{c5c7ab24-44c6-46dc-a7e6-bcd163876f22}"
+    }
+  }
+}
