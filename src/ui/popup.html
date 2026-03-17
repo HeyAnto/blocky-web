@@ -1,20 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="popup.css" />
-  </head>
-  <body>
-    <div id="toggleSwitch">
-      <label>
-        <input type="checkbox" id="extensionToggle" />
-      </label>
-      <div class="info">
-        <p class="title">Blocky Web</p>
-        <p>Click to enable/disable the style</p>
-      </div>
-    </div>
 
-    <script type="module" src="popup.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+  <section class="hd">
+    <h1>Blocky Web</h1>
+  </section>
+
+  <section class="lnk">
+    <a class="btn" href="https://ko-fi.com/heyanto">
+      <img src="./assets/heart-icon.svg" alt="Heart Icon">
+      <p>Donate</p>
+    </a>
+
+    <a class="btn" href="https://github.com/HeyAnto/blocky-web">
+      <img src="./assets/github-icon.svg" alt="GitHub Icon">
+      <p>GitHub</p>
+    </a>
+  </section>
+
+  <section class="sw">
+    <p>Extension Enabled</p>
+    <label class="tg" for="extensionToggle">
+      <input id="extensionToggle" type="checkbox">
+      <span class="tg-ui" aria-hidden="true"></span>
+    </label>
+  </section>
+
+  <script type="module" src="popup.js"></script>
+</body>
+
 </html>
