@@ -1,7 +1,10 @@
 // Init state
 let styleElement = null;
 let isExtensionEnabled = true;
+let isAnimationDisabled = false;
 let cachedCSS = null;
+
+const MOTION_DISABLED_CLASS = "blocky-disable-animations";
 
 // Apply state
 function applyExtensionState() {
@@ -10,21 +13,32 @@ function applyExtensionState() {
   } else {
     removeCustomStyle();
   }
+
+  applyAnimationState();
 }
 
-// Read storage
-function syncStateFromStorage() {
-  browser.storage.local.get("isExtensionEnabled", function (result) {
-    isExtensionEnabled = result.isExtensionEnabled !== false;
-    applyExtensionState();
-  });
+// Apply motion
+function applyAnimationState() {
+  if (!document.documentElement) {
+    return;
+  }
+
+  const shouldDisableAnimations = isExtensionEnabled && isAnimationDisabled;
+  document.documentElement.classList.toggle(
+    MOTION_DISABLED_CLASS,
+    shouldDisableAnimations,
+  );
 }
 
 // Initial apply
-browser.storage.local.get("isExtensionEnabled", function (result) {
-  isExtensionEnabled = result.isExtensionEnabled !== false;
-  applyExtensionState();
-});
+browser.storage.local.get(
+  ["isExtensionEnabled", "isAnimationDisabled"],
+  function (result) {
+    isExtensionEnabled = result.isExtensionEnabled !== false;
+    isAnimationDisabled = result.isAnimationDisabled === true;
+    applyExtensionState();
+  },
+);
 
 function loadCustomStyle() {
   // Use cache
@@ -58,32 +72,31 @@ function removeCustomStyle() {
   }
 }
 
-// Toggle listener
-browser.runtime.onMessage.addListener(function (message) {
-  if (message.action === "extensionToggle") {
-    isExtensionEnabled = message.isEnabled;
-    applyExtensionState();
-  }
-});
-
 // Storage sync
 browser.storage.onChanged.addListener(function (changes, areaName) {
-  if (areaName !== "local" || !changes.isExtensionEnabled) {
+  if (areaName !== "local") {
     return;
   }
 
-  isExtensionEnabled = changes.isExtensionEnabled.newValue !== false;
-  applyExtensionState();
-});
+  let didExtensionChange = false;
+  let didAnimationChange = false;
 
-// Page restore
-window.addEventListener("pageshow", function () {
-  syncStateFromStorage();
-});
+  if (changes.isExtensionEnabled) {
+    isExtensionEnabled = changes.isExtensionEnabled.newValue !== false;
+    didExtensionChange = true;
+  }
 
-// Tab focus sync
-document.addEventListener("visibilitychange", function () {
-  if (document.visibilityState === "visible") {
-    syncStateFromStorage();
+  if (changes.isAnimationDisabled) {
+    isAnimationDisabled = changes.isAnimationDisabled.newValue === true;
+    didAnimationChange = true;
+  }
+
+  if (didExtensionChange) {
+    applyExtensionState();
+    return;
+  }
+
+  if (didAnimationChange) {
+    applyAnimationState();
   }
 });

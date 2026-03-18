@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Blocky Web",
-  "version": "2.1.1",
+  "version": "2.2",
   "description": "Bring back the boxy web",
   "permissions": ["storage", "tabs", "<all_urls>"],
   "browser_action": {
