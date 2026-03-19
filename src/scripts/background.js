@@ -7,7 +7,7 @@ async function updateExtensionIcon() {
       : "assets/icons/icon-inactive.svg";
 
     try {
-      browser.browserAction.setIcon({
+      browser.action.setIcon({
         path: iconPath,
       });
     } catch (error) {
