@@ -4,7 +4,6 @@
   "version": "2.2.1",
   "description": "Bring back the boxy web",
   "author": "Blocky Web",
-  "homepage_url": "https://github.com/",
 
   "permissions": ["storage"],
   "host_permissions": ["<all_urls>"],
