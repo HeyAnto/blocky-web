@@ -2,13 +2,24 @@
 let styleElement = null;
 let isExtensionEnabled = true;
 let isAnimationDisabled = false;
+let isBlacklisted = false;
 let cachedCSS = null;
 
 const MOTION_DISABLED_CLASS = "blocky-disable-animations";
 
+// Parse domain
+function getDomain(url) {
+  try {
+    const urlObj = new URL(url);
+    return urlObj.hostname.toLowerCase();
+  } catch {
+    return null;
+  }
+}
+
 // Apply state
 function applyExtensionState() {
-  if (isExtensionEnabled) {
+  if (isExtensionEnabled && !isBlacklisted) {
     loadCustomStyle();
   } else {
     removeCustomStyle();
@@ -23,11 +34,30 @@ function applyAnimationState() {
     return;
   }
 
-  const shouldDisableAnimations = isExtensionEnabled && isAnimationDisabled;
+  const shouldDisableAnimations =
+    isExtensionEnabled && isAnimationDisabled && !isBlacklisted;
   document.documentElement.classList.toggle(
     MOTION_DISABLED_CLASS,
     shouldDisableAnimations,
   );
+}
+
+// Check blacklist
+function checkIfBlacklisted() {
+  const currentDomain = getDomain(window.location.href);
+  if (!currentDomain) {
+    isBlacklisted = true;
+    applyExtensionState();
+    return;
+  }
+
+  browser.storage.local.get("blacklistedSites", function (result) {
+    const blacklistedSites = Array.isArray(result.blacklistedSites)
+      ? result.blacklistedSites
+      : [];
+    isBlacklisted = blacklistedSites.includes(currentDomain);
+    applyExtensionState();
+  });
 }
 
 // Initial apply
@@ -36,18 +66,16 @@ browser.storage.local.get(
   function (result) {
     isExtensionEnabled = result.isExtensionEnabled !== false;
     isAnimationDisabled = result.isAnimationDisabled === true;
-    applyExtensionState();
+    checkIfBlacklisted();
   },
 );
 
 function loadCustomStyle() {
-  // Use cache
   if (cachedCSS) {
     injectStyle(cachedCSS);
     return;
   }
 
-  // Fetch once
   fetch(browser.runtime.getURL("src/styles/inject.css"))
     .then((response) => response.text())
     .then((css) => {
@@ -80,6 +108,7 @@ browser.storage.onChanged.addListener(function (changes, areaName) {
 
   let didExtensionChange = false;
   let didAnimationChange = false;
+  let didBlacklistChange = false;
 
   if (changes.isExtensionEnabled) {
     isExtensionEnabled = changes.isExtensionEnabled.newValue !== false;
@@ -91,7 +120,18 @@ browser.storage.onChanged.addListener(function (changes, areaName) {
     didAnimationChange = true;
   }
 
-  if (didExtensionChange) {
+  if (changes.blacklistedSites) {
+    const blacklistedSites = Array.isArray(changes.blacklistedSites.newValue)
+      ? changes.blacklistedSites.newValue
+      : [];
+    const currentDomain = getDomain(window.location.href);
+    isBlacklisted =
+      typeof currentDomain === "string" &&
+      blacklistedSites.includes(currentDomain);
+    didBlacklistChange = true;
+  }
+
+  if (didExtensionChange || didBlacklistChange) {
     applyExtensionState();
     return;
   }

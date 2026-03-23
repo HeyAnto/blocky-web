@@ -1,43 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blocky Web</title>
   <link rel="stylesheet" href="popup.css" />
 </head>
 
 <body>
-  <section class="hd">
-    <h1>Blocky Web</h1>
-  </section>
+  <main aria-label="Blocky Web settings">
+    <header class="flex flex-col w-full gap-20">
+      <h1 class="t-white t-center">
+        Blocky Web
+      </h1>
 
-  <section class="lnk">
-    <a class="btn" href="https://ko-fi.com/heyanto">
-      <img src="./assets/heart-icon.svg" alt="Heart Icon">
-      <p>Donate</p>
-    </a>
+      <div class="flex flex-col gap-8">
+        <div class="flex gap-8">
+          <a class="btn btn-primary" href="https://ko-fi.com/heyanto">
+            <img class="btn-icon" src="./assets/heart-icon.svg" alt="Heart Icon">
+            <p>Donate</p>
+          </a>
 
-    <a class="btn" href="https://github.com/HeyAnto/blocky-web">
-      <img src="./assets/github-icon.svg" alt="GitHub Icon">
-      <p>GitHub</p>
-    </a>
-  </section>
+          <a class="btn btn-primary" href="https://github.com/HeyAnto/blocky-web">
+            <img class="btn-icon" src="./assets/github-icon.svg" alt="GitHub Icon">
+            <p>GitHub</p>
+          </a>
+        </div>
 
-  <section class="sw">
-    <p>Extension Enabled</p>
-    <label class="tg" for="extensionToggle">
-      <input id="extensionToggle" type="checkbox">
-      <span class="tg-ui" aria-hidden="true"></span>
-    </label>
-  </section>
+        <div id="extensionToggleContainer" class="btn btn-secondary" role="button" tabindex="0"
+          aria-controls="extensionToggle">
+          <p>Extension Enabled</p>
+          <label class="tg" for="extensionToggle">
+            <input id="extensionToggle" type="checkbox" tabindex="-1">
+            <span class="tg-ui" aria-hidden="true"></span>
+          </label>
+        </div>
 
-  <section class="sw">
-    <p>Disable Animations</p>
-    <label class="tg" for="animationsToggle">
-      <input id="animationsToggle" type="checkbox">
-      <span class="tg-ui" aria-hidden="true"></span>
-    </label>
-  </section>
+        <div id="animationsToggleContainer" class="btn btn-secondary" role="button" tabindex="0"
+          aria-controls="animationsToggle">
+          <p>Disable Animations</p>
+          <label class="tg" for="animationsToggle">
+            <input id="animationsToggle" type="checkbox" tabindex="-1">
+            <span class="tg-ui" aria-hidden="true"></span>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <section class="flex flex-col gap-8" aria-label="Excluded sites">
+      <div>
+        <p class="t-white">Excluded Sites</p>
+        <p class="t-muted">Disable the extension on specific sites.</p>
+      </div>
+
+      <div>
+        <div id="currentSiteContainer" class="btn btn-secondary" style="position: relative;" role="button" tabindex="0"
+          aria-controls="excludedCurrentToggle currentSiteProtectedMessage">
+          <div class="flex flex-col">
+            <p id="currentSiteDomain" class="domain-text current-domain">Unknown site</p>
+            <p id="currentSiteProtectedMessage" class="t-red" style="display: none; font-size: 12px; margin-top: 8px;"
+              aria-live="polite">
+              This site is not supported
+            </p>
+          </div>
+          <label class="chk" for="excludedCurrentToggle">
+            <input id="excludedCurrentToggle" type="checkbox" tabindex="-1">
+            <span class="chk-ui" aria-hidden="true"></span>
+          </label>
+        </div>
+
+        <ul id="excludedListContainer" class="excluded-list" aria-live="polite">
+          <!-- Dynamically populated with blacklisted sites -->
+        </ul>
+      </div>
+    </section>
+  </main>
 
   <script type="module" src="popup.js"></script>
 </body>

@@ -2,6 +2,7 @@
 export const STORAGE_KEYS = {
   IS_EXTENSION_ENABLED: "isExtensionEnabled",
   IS_ANIMATION_DISABLED: "isAnimationDisabled",
+  BLACKLISTED_SITES: "blacklistedSites",
 };
 
 // Message actions
@@ -21,4 +22,22 @@ export const ICONS = {
 export const DEFAULTS = {
   EXTENSION_ENABLED: true,
   ANIMATION_DISABLED: false,
+  BLACKLISTED_SITES: [],
 };
+
+// Protected protocols
+export const PROTECTED_PROTOCOLS = [
+  "chrome://",
+  "chrome-extension://",
+  "moz-extension://",
+  "about:",
+  "data:",
+  "blob:",
+];
+
+// Protected domains
+export const PROTECTED_DOMAINS = [
+  "addons.mozilla.org",
+  "accounts.firefox.com",
+  "support.mozilla.org",
+];
