@@ -8,7 +8,7 @@
 
 ## About
 
-Blocky Web brings back the aesthetic of early web design by replacing modern rounded elements with clean, sharp edges.
+Blocky Web is a browser extension that brings back the aesthetic of early web design by replacing modern rounded elements with clean, sharp edges.
 
 **Features:**
 
