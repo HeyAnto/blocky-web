@@ -2,9 +2,15 @@
 
 <img src="./assets/img-readme.webp" alt="Blocky Web preview" width="100%">
 
-[![Version](https://img.shields.io/badge/version-2.3.1-111111)](https://addons.mozilla.org/fr/firefox/addon/blocky-web/)
-[![Firefox Add-ons](https://img.shields.io/badge/Firefox-Add--ons-FF7139?logo=firefox-browser&logoColor=white)](https://addons.mozilla.org/fr/firefox/addon/blocky-web/)
-![Chrome Coming Soon](https://img.shields.io/badge/Chrome-Coming%20Soon-4285F4?logo=google-chrome&logoColor=white)
+<a style="text-decoration: none;" href="https://addons.mozilla.org/fr/firefox/addon/blocky-web/" target="_blank" rel="noopener noreferrer">
+	<img src="https://img.shields.io/badge/version-2.3.2-111111" alt="Version">
+</a>
+<a style="text-decoration: none;" href="https://addons.mozilla.org/fr/firefox/addon/blocky-web/" target="_blank" rel="noopener noreferrer">
+	<img src="https://img.shields.io/badge/Firefox-Add--ons-FF7139?logo=firefox-browser&logoColor=white" alt="Firefox Add-ons">
+</a>
+<a style="text-decoration: none;" href="https://ko-fi.com/heyanto" target="_blank" rel="noopener noreferrer">
+	<img src="https://img.shields.io/badge/Buy%20me%20a%20coffee-Ko--fi-ff5f5f?logo=ko-fi&logoColor=white" alt="Buy me a coffee on Ko-fi">
+</a>
 
 ## About
 
