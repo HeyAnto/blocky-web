@@ -4,8 +4,12 @@ let isExtensionEnabled = true;
 let isAnimationDisabled = false;
 let isBlacklisted = false;
 let cachedCSS = null;
+let currentDomain = null;
 
 const MOTION_DISABLED_CLASS = "blocky-disable-animations";
+
+// Excluded domains
+const MOTION_DISABLED_EXCLUDED_DOMAINS = ["instagram.com"];
 
 // Parse domain
 function getDomain(url) {
@@ -15,6 +19,21 @@ function getDomain(url) {
   } catch {
     return null;
   }
+}
+
+// Cache domain
+function updateCurrentDomain() {
+  currentDomain = getDomain(window.location.href);
+}
+
+// Check exclusion
+function isMotionDisableExcluded() {
+  if (!currentDomain) {
+    return false;
+  }
+  return MOTION_DISABLED_EXCLUDED_DOMAINS.some((domain) =>
+    currentDomain.includes(domain),
+  );
 }
 
 // Apply state
@@ -35,7 +54,10 @@ function applyAnimationState() {
   }
 
   const shouldDisableAnimations =
-    isExtensionEnabled && isAnimationDisabled && !isBlacklisted;
+    isExtensionEnabled &&
+    isAnimationDisabled &&
+    !isBlacklisted &&
+    !isMotionDisableExcluded();
   document.documentElement.classList.toggle(
     MOTION_DISABLED_CLASS,
     shouldDisableAnimations,
@@ -44,7 +66,7 @@ function applyAnimationState() {
 
 // Check blacklist
 function checkIfBlacklisted() {
-  const currentDomain = getDomain(window.location.href);
+  updateCurrentDomain();
   if (!currentDomain) {
     isBlacklisted = true;
     applyExtensionState();
@@ -124,7 +146,6 @@ browser.storage.onChanged.addListener(function (changes, areaName) {
     const blacklistedSites = Array.isArray(changes.blacklistedSites.newValue)
       ? changes.blacklistedSites.newValue
       : [];
-    const currentDomain = getDomain(window.location.href);
     isBlacklisted =
       typeof currentDomain === "string" &&
       blacklistedSites.includes(currentDomain);
