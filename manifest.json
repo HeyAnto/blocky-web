@@ -43,13 +43,5 @@
         "required": ["none"]
       }
     }
-  },
-
-  "icons": {
-    "16": "assets/icons/icon-active.svg",
-    "32": "assets/icons/icon-active.svg",
-    "48": "assets/icons/icon-active.svg",
-    "64": "assets/icons/icon-active.svg",
-    "128": "assets/icons/icon-active.svg"
   }
 }
